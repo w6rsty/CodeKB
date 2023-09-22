@@ -14,10 +14,13 @@ struct NavigationScreen: View {
     
     var body: some View {
         NavigationStack {
+            ZStack {
+                Color.red
                 TabView(selection: $tab) {
-                    ForEach(Tab.allCases, id: \.self) { $0 }
-                }
+                        ForEach(Tab.allCases, id: \.self) { $0 }
+                    }
                 .tint(Color.white)
+            }
         }
         .preferredColorScheme(shouldUseDarkMode ? .dark : .light)
     }
