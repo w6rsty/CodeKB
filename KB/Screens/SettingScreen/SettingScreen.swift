@@ -11,22 +11,38 @@ struct SettingScreen: View {
     @AppStorage(.userID) private var userID: String = ""
     @AppStorage(.shouldUseDarkMode) private var shouldUseDarkMode: Bool = false
     @AppStorage(.bgOpacity) private var bgOpacity: Double = 1
+    @AppStorage(.beginYear) private var beginYear: Int = 0
+    @AppStorage(.beginMonth) private var beginMonth: Int = 0
+    @AppStorage(.beginDay) private var beginDay: Int = 0
+    @State private var beginDate = Date()
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 30) {
-            Text("学号")
-                .font(.title2).bold()
-            TextField("必填", text: $userID)
-            Text("深色模式")
-                .font(.title2).bold()
-            Toggle(isOn: $shouldUseDarkMode) {
-                Label("", systemImage: .moon)
+        Form {
+            Section {
+                TextField("学号", text: $userID)
+                
+                DatePicker(
+                    "开学日期",
+                    selection: $beginDate,
+                    displayedComponents: [.date]
+                )
+                .datePickerStyle(.compact)
+                .onAppear {
+                    beginDate = Date.init(year: beginYear, month: beginMonth, day: beginDay)
+                }
+                .onChange(of: beginDate) { date in
+                    beginYear = date.yearInt
+                    beginMonth = date.monthInt
+                    beginDay = date.dayInt
+                    print("set date to \(beginYear) \(beginMonth) \(beginDay)")
+                }
             }
-            Spacer()
+            Section {
+                Toggle(isOn: $shouldUseDarkMode) {
+                    Label("深色模式", systemImage: .moon)
+                }
+            }
         }
-        .listStyle(.plain)
-        .padding()
-        .background(Color.clear)
     }
 }
 

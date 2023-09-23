@@ -28,17 +28,33 @@ struct TableScreen : View {
     
     @State var schedule: Schedule?
     
+    let week = Week.example()
+    
     var body: some View {
-        VStack {
-            headerBar
-            
-            TableView(schedule: $schedule)
-                .background(Color.clear)
+        NavigationView {
+            HStack(spacing: 0) {
+                ScheduleView(numberOfWeeks: 5, weeks: [week, week, week, week, week])
+                    .padding(5)
+                
+                if _shouldShowThumbnail.wrappedValue {
+                    thumnailView
+                }
+            }
+            .background(Color.clear)
+            .toolbar {
+                ToolbarItemGroup(placement: .navigationBarLeading) {
+                    Text("Today").font(.title)
+                }
+                ToolbarItemGroup(placement: .navigationBarTrailing) {
+                    openSheetButton
+                    openThumbnail
+                }
+            }
+            .sheet(isPresented: $shouldShowWebView) {
+                webViewSheet
+            }
+        }
         
-        }
-        .sheet(isPresented: $shouldShowWebView) {
-            webViewSheet
-        }
     }
 }
 
@@ -48,7 +64,7 @@ extension TableScreen {
     
     /// Debug 打印获取的html
     var debugDisplayButton: some View {
-        Button("Print HTML", role: .destructive) {
+        Button("Print HTML") {
             
             if htmlContent.isEmpty {
                 print("Empty html")
@@ -56,33 +72,18 @@ extension TableScreen {
                 print(htmlContent)
             }
         }
-        .buttonStyle(.borderedProminent)
-        .buttonBorderShape(.roundedRectangle)
         .animation(.easeIn, value: isFinished)
     }
 }
 
 extension TableScreen {
-    /// 课表头部
-    var headerBar: some View {
-        HStack {
-            openSheetButton
-            
-            Spacer()
-            
-            openThumbnail
-        }
-        .padding(.horizontal, 8)
-        .padding(.vertical, 8)
-    }
-    
     /// 开启WebView的按钮
     var openSheetButton: some View {
         Button {
             url = "http://jwxt.cumt.edu.cn/jwglxt/kbcx/xskbcx_cxXskbcxIndex.html?gnmkdm=N253508&layout=default&su=\(userID)"
             shouldShowWebView.toggle()
         } label: {
-            Image(systemName: "icloud.and.arrow.down")
+            Image(systemName: "plus")
                 .resizable()
                 .frame(width: 20, height: 20)
         }
@@ -91,7 +92,9 @@ extension TableScreen {
     ///  开启缩略图按钮
     var openThumbnail: some View {
         Button {
-            shouldShowThumbnail.toggle()
+            withAnimation {
+                shouldShowThumbnail.toggle()
+            }
         } label: {
             Image(systemName: "square.rightthird.inset.filled")
                 .resizable()
@@ -99,6 +102,13 @@ extension TableScreen {
         }
     }
     
+    
+    var thumnailView: some View {
+        Rectangle()
+            .fill(gradient)
+            .frame(width: 50)
+            .transition(.move(edge: .trailing))
+    }
     
     /// 构建Sheet的关闭按钮
     @ViewBuilder
@@ -126,10 +136,13 @@ extension TableScreen {
                     currentURL: $currentURL
                 )
                 // View
-                webView
-                    .overlay(alignment: .bottom) {
+                ZStack {
+                    webView
+                    VStack {
+                        Spacer()
                         buildSaveButton(webView)
                     }
+                }
             }
         }
     }
@@ -177,8 +190,9 @@ extension TableScreen {
                 .foregroundColor(.white)
                 .frame(maxWidth: .infinity)
         }
-        .buttonStyle(.borderedProminent)
-        .controlSize(.large)
+        .font(.title2)
+        .padding()
+        .background(RoundedRectangle(cornerRadius: 10).fill(Color.accentColor))
         .padding()
         .disabled(!currentURL.contains("http://jwxt.cumt.edu.cn/jwglxt/kbcx/xskbcx_cxXskbcxIndex.html?gnmkdm=N253508&layout=default&su="))
     }

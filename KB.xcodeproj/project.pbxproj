@@ -15,11 +15,11 @@
 		39AB28D92ABC5DF000ADD628 /* LocalData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39AB28D82ABC5DF000ADD628 /* LocalData.swift */; };
 		39AB28DD2ABC97A500ADD628 /* KBColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39AB28DC2ABC97A500ADD628 /* KBColor.swift */; };
 		39BA619C2AAC8B5C007D41E8 /* JsonData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39BA619B2AAC8B5C007D41E8 /* JsonData.swift */; };
+		39BC876A2ABEC90500284132 /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39BC87692ABEC90500284132 /* Date+.swift */; };
 		39C745042AA4632200BB5E88 /* NavigationScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C745032AA4632200BB5E88 /* NavigationScreen.swift */; };
 		39C745062AA4634C00BB5E88 /* TabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C745052AA4634C00BB5E88 /* TabView.swift */; };
 		39C745082AA4636B00BB5E88 /* TableScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C745072AA4636B00BB5E88 /* TableScreen.swift */; };
 		39C7450A2AA4637E00BB5E88 /* SettingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C745092AA4637E00BB5E88 /* SettingScreen.swift */; };
-		39C7450F2AA463BD00BB5E88 /* TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C7450E2AA463BD00BB5E88 /* TableView.swift */; };
 		39C745112AA463DE00BB5E88 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C745102AA463DE00BB5E88 /* WebView.swift */; };
 		39C745142AA4644300BB5E88 /* AppStorage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C745132AA4644300BB5E88 /* AppStorage+.swift */; };
 		39C745162AA4646B00BB5E88 /* SFSymbols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C745152AA4646B00BB5E88 /* SFSymbols.swift */; };
@@ -35,12 +35,12 @@
 		39AB28D82ABC5DF000ADD628 /* LocalData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalData.swift; sourceTree = "<group>"; };
 		39AB28DC2ABC97A500ADD628 /* KBColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KBColor.swift; sourceTree = "<group>"; };
 		39BA619B2AAC8B5C007D41E8 /* JsonData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonData.swift; sourceTree = "<group>"; };
+		39BC87692ABEC90500284132 /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
 		39BD24D42AA4C86700831CBF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		39C745032AA4632200BB5E88 /* NavigationScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationScreen.swift; sourceTree = "<group>"; };
 		39C745052AA4634C00BB5E88 /* TabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabView.swift; sourceTree = "<group>"; };
 		39C745072AA4636B00BB5E88 /* TableScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableScreen.swift; sourceTree = "<group>"; };
 		39C745092AA4637E00BB5E88 /* SettingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingScreen.swift; sourceTree = "<group>"; };
-		39C7450E2AA463BD00BB5E88 /* TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableView.swift; sourceTree = "<group>"; };
 		39C745102AA463DE00BB5E88 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		39C745132AA4644300BB5E88 /* AppStorage+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppStorage+.swift"; sourceTree = "<group>"; };
 		39C745152AA4646B00BB5E88 /* SFSymbols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFSymbols.swift; sourceTree = "<group>"; };
@@ -100,7 +100,6 @@
 			isa = PBXGroup;
 			children = (
 				39C745102AA463DE00BB5E88 /* WebView.swift */,
-				39C7450E2AA463BD00BB5E88 /* TableView.swift */,
 				39AB28D22ABC07E400ADD628 /* ScheduleView.swift */,
 				39AB28D62ABC5A2100ADD628 /* WeekView.swift */,
 			);
@@ -130,6 +129,7 @@
 			isa = PBXGroup;
 			children = (
 				39C745132AA4644300BB5E88 /* AppStorage+.swift */,
+				39BC87692ABEC90500284132 /* Date+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -232,11 +232,12 @@
 			};
 			buildConfigurationList = 39502D982AA4602F00F9B53C /* Build configuration list for PBXProject "KB" */;
 			compatibilityVersion = "Xcode 14.0";
-			developmentRegion = en;
+			developmentRegion = "zh-Hans";
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
 			);
 			mainGroup = 39502D942AA4602F00F9B53C;
 			packageReferences = (
@@ -277,8 +278,8 @@
 				39C745042AA4632200BB5E88 /* NavigationScreen.swift in Sources */,
 				39502DA12AA4602F00F9B53C /* AppEntry.swift in Sources */,
 				39BA619C2AAC8B5C007D41E8 /* JsonData.swift in Sources */,
-				39C7450F2AA463BD00BB5E88 /* TableView.swift in Sources */,
 				39C745082AA4636B00BB5E88 /* TableScreen.swift in Sources */,
+				39BC876A2ABEC90500284132 /* Date+.swift in Sources */,
 				39AB28D32ABC07E400ADD628 /* ScheduleView.swift in Sources */,
 				39C745062AA4634C00BB5E88 /* TabView.swift in Sources */,
 			);
@@ -418,6 +419,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -448,6 +450,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

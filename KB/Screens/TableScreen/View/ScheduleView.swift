@@ -7,40 +7,34 @@
 
 import SwiftUI
 
-
-struct Item: Identifiable {
-    var id = UUID()
-    let color: Color
-}
-
 struct ScheduleView: View {
     // 总周数
     let numberOfWeeks: Int
     let weeks: [Week]
+
+    // 翻页需要滑动的距离
+    private let dragThreshold: CGFloat = 50
     @State private var currentIndex: Int = 0
     @State private var dragOffset: CGFloat = 0
-    // 翻页需要滑动的距离
-    private let dragThreshold: CGFloat = 100
-    // 定义如何构建Week的样式
     
     var body: some View {
         GeometryReader { proxy in
-            let itemHeight: CGFloat = proxy.size.height
-            let itemWidth: CGFloat = proxy.size.width
+            let width = proxy.size.width / 8
             VStack(spacing: 0) {
-                ForEach(weeks.indices, id: \.self) { index in
-                    WeekView(week: weeks[index])
-                        .frame(width: itemWidth, height: itemHeight)
-                        .scaleEffect(setScaleValue(at: index, height: itemHeight, in: proxy))
-                        .opacity(setOpacity(at: index, height: itemHeight, in: proxy))
+                buildWeekHead(width)
+                    .border(.red)
+                HStack(spacing: 0) {
+                    buildWeekLeft(width)
+                        .border(.red)
+                    buildWeekView(proxy: proxy)
                 }
             }
-            .offset(y: calculateOffest(currentIndex, itemHeight) + dragOffset)
+            .background(Color.clear)
             .gesture(
                 DragGesture(coordinateSpace: .global)
                     .onChanged { value in
                         withAnimation(.easeInOut) {
-                            dragOffset = value.translation.height
+                            dragOffset = value.translation.height * 0.8
                         }
                     }
                     .onEnded { value in
@@ -50,13 +44,36 @@ struct ScheduleView: View {
                         }
                     }
             )
-            .clipShape(Rectangle())
         }
     }
 }
 
 
 extension ScheduleView {
+    @ViewBuilder
+    func buildWeekView(proxy: GeometryProxy) -> some View {
+        VStack(spacing: 0) {
+            GeometryReader { weekProxy in
+                VStack(spacing: 0) {
+                    GeometryReader { inner in
+                        VStack(spacing: 0) {
+                            ForEach(weeks.indices, id: \.self) { index in
+                                WeekView(week: weeks[index])
+                                    .frame(width: inner.size.width, height: inner.size.height)
+                                    .scaleEffect(setScaleValue(at: index, height: weekProxy.size.height, in: proxy))
+                                    .opacity(setOpacity(at: index, height: weekProxy.size.height, in: proxy))
+                                    .border(.red)
+                            }
+                        }
+                    }
+                }
+                .offset(y: calculateOffest(currentIndex, weekProxy.size.height) + dragOffset)
+                .clipShape(Rectangle())
+            }
+        }
+    }
+    
+    
     func calculateOffest(_ index: Int, _ itemHeight: CGFloat) -> CGFloat {
         return -CGFloat(index) * itemHeight
     }
@@ -65,7 +82,7 @@ extension ScheduleView {
         let currentItemOffset = calculateOffest(index, itemHeight) + dragOffset
         let itemPostion = CGFloat(index) * itemHeight + currentItemOffset
         let distanceFromCenter = abs(geometry.size.height / 2 - itemPostion - itemHeight / 2)
-        let scale: CGFloat = 0.8 + (0.2 * (1 - min(1, distanceFromCenter / itemHeight)))
+        let scale: CGFloat = 0.9 + (0.1 * (1 - min(1, distanceFromCenter / itemHeight)))
         return scale
 
     }
@@ -93,10 +110,44 @@ extension ScheduleView {
             currentIndex += 1
         }
     }
+    
+    @ViewBuilder
+    func buildWeekHead(_ width: CGFloat) -> some View {
+        HStack(spacing: 0) {
+            Spacer(minLength: width)
+            Text("一").frame(maxWidth: width)
+            Text("二").frame(maxWidth: width)
+            Text("三").frame(maxWidth: width)
+            Text("四").frame(maxWidth: width)
+            Text("五").frame(maxWidth: width)
+            Text("六").frame(maxWidth: width)
+            Text("日").frame(maxWidth: width)
+        }
+    }
+    
+    @ViewBuilder
+    func buildWeekLeftCell(num: String, begin: String, end: String) -> some View {
+        VStack(spacing: 0) {
+            Text(num).font(.headline)
+            Text(begin).font(.caption)
+            Text(end).font(.caption)
+        }.frame(maxHeight: .infinity).border(.blue)
+    }
+    
+    @ViewBuilder
+    func buildWeekLeft(_ width: CGFloat) -> some View {
+        VStack(spacing: 0) {
+            buildWeekLeftCell(num: "1", begin: "08:00", end: "8:50")
+            buildWeekLeftCell(num: "2", begin: "08:00", end: "8:50")
+            buildWeekLeftCell(num: "3", begin: "08:00", end: "8:50")
+            buildWeekLeftCell(num: "4", begin: "08:00", end: "8:50")
+            buildWeekLeftCell(num: "5", begin: "08:00", end: "8:50")
+            buildWeekLeftCell(num: "6", begin: "08:00", end: "8:50")
+            buildWeekLeftCell(num: "7", begin: "08:00", end: "8:50")
+            buildWeekLeftCell(num: "8", begin: "08:00", end: "8:50")
+            buildWeekLeftCell(num: "9", begin: "08:00", end: "8:50")
+            buildWeekLeftCell(num: "10", begin: "08:00", end: "8:50")
+        }
+        .frame(width: width)
+    }
 }
-
-//struct ContentView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ScheduleView()
-//    }
-//}

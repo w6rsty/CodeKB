@@ -12,6 +12,9 @@ extension UserDefaults {
         case shouldUseDarkMode
         case userID
         case bgOpacity
+        case beginYear
+        case beginMonth
+        case beginDay
     }
 }
 
@@ -25,6 +28,9 @@ extension AppStorage {
     }
     
     init(wrappedValue: Value, _ key: UserDefaults.Key, store: UserDefaults? = nil) where Value == Double {
+        self.init(wrappedValue: wrappedValue,key.rawValue, store: store)
+    }
+    init(wrappedValue: Value, _ key: UserDefaults.Key, store: UserDefaults? = nil) where Value == Int {
         self.init(wrappedValue: wrappedValue,key.rawValue, store: store)
     }
 }
