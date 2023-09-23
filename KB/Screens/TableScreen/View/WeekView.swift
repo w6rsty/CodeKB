@@ -40,10 +40,12 @@ struct WeekView: View {
                     Text(lesson.lessonName)
                 }
                 .frame(width: info.blockWidth, height: CGFloat(lesson.blockLength) * info.blockHeight)
-                .background(RoundedRectangle(cornerRadius: 8).fill(.red))
+                .background(RoundedRectangle(cornerRadius: 8).fill(gradient))
                 .offset(y: CGFloat(lesson.startBlock - 1) * info.blockHeight)
             }
         }
         .frame(width: info.blockWidth)
     }
 }
+
+

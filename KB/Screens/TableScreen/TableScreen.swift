@@ -28,12 +28,12 @@ struct TableScreen : View {
     
     @State var schedule: Schedule?
     
-    let week = Week.example()
+    @State var week: [Week]?
     
     var body: some View {
         NavigationView {
             HStack(spacing: 0) {
-                ScheduleView(numberOfWeeks: 5, weeks: [week, week, week, week, week])
+                ScheduleView(numberOfWeeks: 20, weeks: week ?? Array(repeating: Week.empty(), count: 20))
                     .padding(5)
                 
                 if _shouldShowThumbnail.wrappedValue {
@@ -177,6 +177,9 @@ extension TableScreen {
                         do {
                             schedule = try JSONDecoder().decode(Schedule.self, from: data)
                             print("Got data")
+                            if let schedule = schedule {
+                                week = schedule.toWeeks()
+                            }
                         } catch {
                             print("Failed to decode JSON file\(error)")
                         }

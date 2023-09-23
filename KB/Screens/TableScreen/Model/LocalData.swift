@@ -18,6 +18,10 @@ struct Week {
     var friday: [Lesson]
     var saturday: [Lesson]
     var sunday: [Lesson]
+    
+    static func empty() -> Week {
+        return Week(monday: [], tuesday: [], wednesday: [], thursday: [], friday: [], saturday: [], sunday: [])
+    }
 }
 
 extension Week {
@@ -67,47 +71,5 @@ class WeekDate {
 }
 
 
-extension Date {
-    enum Days: CaseIterable {
-        case monday, tuesday, wednesday, thursday, friday, saturday, sunday
-        
-        var dateProvider: (WeekDate) -> Date {
-            switch self {
-            case .monday:
-                return { $0.monday }
-            case .tuesday:
-                return { $0.tuesday }
-            case .wednesday:
-                return { $0.wednesday }
-            case .thursday:
-                return { $0.thursday }
-            case .friday:
-                return { $0.friday }
-            case .saturday:
-                return { $0.saturday }
-            case .sunday:
-                return { $0.sunday }
-            }
-        }
-        
-        var dateChar: String {
-            switch self {
-            case .monday:
-                return "一"
-            case .tuesday:
-                return "二"
-            case .wednesday:
-                return "三"
-            case .thursday:
-                return "四"
-            case .friday:
-                return "五"
-            case .saturday:
-                return "六"
-            case .sunday:
-                return "日"
-            }
-        }
-    }
-}
+
 
